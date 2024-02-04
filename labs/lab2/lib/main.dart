@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'exceptions.dart';
-import 'selection.dart';
+import 'top_selection.dart';
 
 void main() {
   runApp(const MyApp());
@@ -251,7 +251,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => Selection(clothes: clothes)));
+                    builder: (context) => TopSelection(clothes: clothes)));
           },
           style: TextButton.styleFrom(
             backgroundColor: Color.fromARGB(255, 113, 174, 143),
