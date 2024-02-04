@@ -1,15 +1,23 @@
 # lab2
 
-A new Flutter project.
+Outfit maker
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+- install flutter sdk and android sdk if you don't have them installed
+- launch the project in VS Code
+- start emulator
+- run `flutter run` command
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## User Manual
+
+- *optional* update your closet shelves if needed (add, edit or remove clothing)
+- click next
+- choose your top
+- choose your trousers
+- choose your shoes
+- you are ready to go!
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
