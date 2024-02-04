@@ -150,86 +150,87 @@ class _MyHomePageState extends State<MyHomePage> {
     ).then((value) => setState(() {}));
   }
 
-Widget _buildClothingList(String category) {
-  return Container(
-    height: 300,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Card(
-          child: ListTile(
-            title: Center(
-              child: Text(
+  Widget _buildClothingList(String category) {
+    return Container(
+      height: 300,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Card(
+            child: ListTile(
+              title: Text(
                 "My $category",
-                style: const TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 75, 75, 75)),
+              ),
+              trailing: IconButton(
+                icon: const Icon(Icons.add),
+                color: Colors.green,
+                onPressed: () {
+                  setState(() {
+                    _showAddDialog(context, category);
+                  });
+                },
               ),
             ),
-            trailing: IconButton(
-              icon: const Icon(Icons.add),
-              color: Colors.green,
-              onPressed: () {
-                setState(() {
-                  _showAddDialog(context, category);
-                });
+          ),
+          Container(
+            height: 200,
+            child: ListView.builder(
+              itemCount: clothes[category]!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  child: ListTile(
+                    title: Text(clothes[category]![index]),
+                    trailing: SizedBox(
+                      width: 100,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            color: Colors.amber,
+                            onPressed: () {
+                              setState(() {
+                                _showEditDialog(context,
+                                    clothes[category]![index], index, category);
+                              });
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            color: Colors.red,
+                            onPressed: () {
+                              setState(() {
+                                clothes[category]!.removeAt(index);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
               },
             ),
           ),
-        ),
-        Container(
-          height: 200,
-          child: ListView.builder(
-            itemCount: clothes[category]!.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                child: ListTile(
-                  title: Text(clothes[category]![index]),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          color: Colors.amber,
-                          onPressed: () {
-                            setState(() {
-                              _showEditDialog(context,
-                                  clothes[category]![index], index, category);
-                            });
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          color: Colors.red,
-                          onPressed: () {
-                            setState(() {
-                              clothes[category]!.removeAt(index);
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 83, 153, 117),
+        backgroundColor: Color.fromARGB(255, 113, 174, 143),
         title: const Text(
-          "191523",
-          style: TextStyle(color: Color.fromARGB(255, 150, 19, 19)),
+          "My wardrobe",
+          style: TextStyle(
+              color: Color.fromARGB(255, 150, 19, 19),
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold),
         ),
         foregroundColor: Colors.white,
       ),
@@ -242,6 +243,25 @@ Widget _buildClothingList(String category) {
               _buildClothingList('shoes'),
             ]),
           )),
+      floatingActionButton: Container(
+        alignment: Alignment.bottomRight,
+        margin: EdgeInsets.only(bottom: 16.0, right: 16.0),
+        child: TextButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Selection(clothes: clothes)));
+          },
+          style: TextButton.styleFrom(
+            backgroundColor: Color.fromARGB(255, 113, 174, 143),
+          ),
+          child: Text(
+            'Next',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
     );
   }
 }

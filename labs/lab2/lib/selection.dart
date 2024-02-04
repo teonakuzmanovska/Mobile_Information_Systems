@@ -14,7 +14,15 @@ class _SelectionState extends State<Selection> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Selection Page'),
+        backgroundColor: Color.fromARGB(255, 113, 174, 143),
+        title: const Text(
+          "My wardrobe",
+          style: TextStyle(
+              color: Color.fromARGB(255, 150, 19, 19),
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold),
+        ),
+        foregroundColor: Colors.white,
       ),
       body: Center(
         child: Column(
