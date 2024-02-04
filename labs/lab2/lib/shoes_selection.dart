@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/outfit.dart';
 
 class ShoesSelection extends StatefulWidget {
   final Map<String, List<String>> clothes;
   final Map<String, String> outfit;
 
-  const ShoesSelection(
-      {Key? key, required this.clothes, required this.outfit})
+  const ShoesSelection({Key? key, required this.clothes, required this.outfit})
       : super(key: key);
 
   @override
@@ -22,6 +22,10 @@ class _ShoesSelectionState extends State<ShoesSelection> {
                     widget.outfit[type] = item;
                   });
                   print(widget.outfit);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Outfit(outfit: widget.outfit)));
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 113, 174, 143),
