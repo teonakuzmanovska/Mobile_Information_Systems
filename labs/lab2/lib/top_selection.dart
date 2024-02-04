@@ -13,7 +13,7 @@ class TopSelection extends StatefulWidget {
 class _TopSelectionState extends State<TopSelection> {
   Map<String, String> outfit = {'top': "", 'trousers': "", "shoes": ""};
 
-  Widget getTextWidgets(List<String> clothings, String type) {
+  Widget getButtonWidgets(List<String> clothings, String type) {
     return Column(
         children: clothings
             .map((item) => TextButton(
@@ -21,7 +21,6 @@ class _TopSelectionState extends State<TopSelection> {
                   setState(() {
                     outfit[type] = item;
                   });
-                  print(outfit);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -63,7 +62,7 @@ class _TopSelectionState extends State<TopSelection> {
                   style: TextStyle(
                       fontSize: 20, color: Color.fromARGB(255, 36, 83, 122)),
                 )),
-            getTextWidgets(widget.clothes['tops']!, "top"),
+            getButtonWidgets(widget.clothes['tops']!, "top"),
           ],
         ),
       ),

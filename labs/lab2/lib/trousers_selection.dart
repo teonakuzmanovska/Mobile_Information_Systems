@@ -14,7 +14,7 @@ class TrousersSelection extends StatefulWidget {
 }
 
 class _TrousersSelectionState extends State<TrousersSelection> {
-  Widget getTextWidgets(List<String> clothings, String type) {
+  Widget getButtonWidgets(List<String> clothings, String type) {
     return Column(
         children: clothings
             .map((item) => TextButton(
@@ -22,13 +22,11 @@ class _TrousersSelectionState extends State<TrousersSelection> {
                   setState(() {
                     widget.outfit[type] = item;
                   });
-                  print(widget.outfit);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => ShoesSelection(
                               clothes: widget.clothes, outfit: widget.outfit)));
-
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 113, 174, 143),
@@ -65,7 +63,7 @@ class _TrousersSelectionState extends State<TrousersSelection> {
                   style: TextStyle(
                       fontSize: 20, color: Color.fromARGB(255, 36, 83, 122)),
                 )),
-            getTextWidgets(widget.clothes['trousers']!, "trousers"),
+            getButtonWidgets(widget.clothes['trousers']!, "trousers"),
           ],
         ),
       ),
