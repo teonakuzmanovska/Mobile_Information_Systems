@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _showAddDialog(BuildContext context, String category) {
     TextEditingController textEditingController =
-        TextEditingController(text: " ");
+        TextEditingController(text: "");
     showDialog(
       context: context,
       builder: (BuildContext context) {
