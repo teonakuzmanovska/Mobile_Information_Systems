@@ -1,7 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lab3/env.dart';
 
-void main() {
+Future main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if(kIsWeb){
+    Firebase.initializeApp(options: FirebaseOptions(apiKey: Env.apiKey, appId: Env.appId, messagingSenderId: Env.messagingSenderId, projectId: Env.projectId));
+  }
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
