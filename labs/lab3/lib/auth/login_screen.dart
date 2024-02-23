@@ -61,7 +61,7 @@ class _LoginScreenState extends State<Login> {
                   const Text(
                     "Welcome",
                     style: TextStyle(
-                        color: Colors.blue,
+                        color: Colors.purple,
                         fontWeight: FontWeight.bold,
                         fontSize: 30),
                   ),

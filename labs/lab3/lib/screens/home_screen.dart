@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lab3/models/Exam.dart';
+import 'package:lab3/screens/calendar_view.dart';
 import 'package:lab3/screens/exam_list.dart';
 import 'package:lab3/widgets/new_exam.dart';
 
@@ -39,15 +40,22 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Exams schedule'),
         actions: [
           IconButton(
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        CalendarView(userCourses: _userCourses))),
+            icon: const Icon(Icons.calendar_month),
+            color: Colors.black,
+          ),
+          IconButton(
             onPressed: () => _startAddNewCourse(context),
             icon: const Icon(Icons.add),
             color: Colors.black,
           )
         ],
       ),
-      body: ListView(children: [
-        ExamList(_userCourses),
-      ]),
+      body: ListView(children: [ExamList(_userCourses)]),
     );
   }
 }
