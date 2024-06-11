@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:lab3/models/Location.dart' as location_model;
+import 'package:lab3/widgets/map_picker.dart';
 
 class NewExam extends StatefulWidget {
   final Function addNewExam;
@@ -12,38 +16,56 @@ class _NewExamState extends State<NewExam> {
   final titleController = TextEditingController();
   DateTime date = DateTime(0);
 
-  void _presentDatePicker() async {
-    await showDatePicker(
+  location_model.Location location =
+      location_model.Location(coordinates: const LatLng(0, 0), address: "");
+
+  String address = "";
+  String textDate = 'Select a date: ';
+  String textLocation = 'Select a location: ';
+
+  Future<void> _presentDatePicker() async {
+    final datePicked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
-    ).then((datePicked) => {
-          if (datePicked != null) {date = datePicked}
-        });
+    );
 
-    await showTimePicker(
+    if (datePicked != null) {
+      final timePicked = await showTimePicker(
         context: context,
-        initialTime: const TimeOfDay(
-          hour: 0,
-          minute: 0,
-        )).then((timePicked) => {
-          if (timePicked != null)
-            {
-              date = DateTime(date.year, date.month, date.day, timePicked.hour,
-                  timePicked.minute)
-            }
+        initialTime: const TimeOfDay(hour: 0, minute: 0),
+      );
+
+      if (timePicked != null) {
+        setState(() {
+          date = DateTime(
+            datePicked.year,
+            datePicked.month,
+            datePicked.day,
+            timePicked.hour,
+            timePicked.minute,
+          );
+          textDate = DateFormat.yMd().add_jm().format(date);
         });
-    setState(() {
-      if (date != DateTime(0)) {
-        textDate = date.toString();
-      } else {
-        textDate = 'Select a date:';
       }
-    });
+    }
   }
 
-  String textDate = 'Select a date:';
+  Future<void> _showMapPicker() async {
+    location = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => MapPicker(),
+      ),
+    );
+
+    if (location !=
+        location_model.Location(coordinates: const LatLng(0, 0), address: "")) {
+      setState(() {
+        textLocation = location.address;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,17 +101,51 @@ class _NewExamState extends State<NewExam> {
                         ),
                       ),
                     ),
-                  )
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(textLocation),
+                  Container(
+                    margin: const EdgeInsets.all(20),
+                    child: Material(
+                      elevation: 5,
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      child: IconButton(
+                        onPressed: () {
+                          _showMapPicker();
+                        },
+                        icon: const Icon(
+                          Icons.location_on,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               ElevatedButton(
                 onPressed: () {
-                  if (date != DateTime.now() &&
-                      titleController.text.isNotEmpty) {
-                    widget.addNewExam(titleController.text, date);
+                  if (date != DateTime(0) &&
+                      titleController.text.isNotEmpty &&
+                      location.coordinates != const LatLng(0, 0)) {
+                    widget.addNewExam(
+                      titleController.text,
+                      date,
+                      location,
+                    );
                     titleController.clear();
-                    textDate = 'Select a date:';
-                    date = DateTime(0);
+                    setState(() {
+                      textDate = 'Select a date:';
+                      textLocation = 'Select a location:';
+                      date = DateTime(0);
+                      location = location_model.Location(
+                          coordinates: const LatLng(0, 0), address: "");
+                    });
+                    Navigator.pop(context);
                   }
                 },
                 child: const Text('Ok'),
