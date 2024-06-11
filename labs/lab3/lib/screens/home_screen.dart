@@ -17,14 +17,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final titleController = TextEditingController();
 
-  final List<Exam> _userCourses = [];
+  final List<Exam> _exams = [];
 
   void _addNewCourse(
       String title, DateTime date, location_model.Location location) {
     final newCourse = Exam(title: title, date: date, location: location);
 
     setState(() {
-      _userCourses.add(newCourse);
+      _exams.add(newCourse);
     });
   }
 
@@ -46,8 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        CalendarView(userCourses: _userCourses))),
+                    builder: (context) => CalendarView(exams: _exams))),
             icon: const Icon(Icons.calendar_month),
             color: Colors.black,
           ),
@@ -55,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MapView(userCourses: _userCourses))),
+                    builder: (context) => MapView(exams: _exams))),
             icon: const Icon(Icons.map),
             color: Colors.black,
           ),
@@ -66,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: ListView(children: [ExamList(_userCourses)]),
+      body: ListView(children: [ExamList(_exams)]),
     );
   }
 }

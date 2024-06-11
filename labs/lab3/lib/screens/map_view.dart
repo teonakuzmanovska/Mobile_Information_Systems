@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lab3/models/Exam.dart';
+import 'package:lab3/services/location_provider.dart';
+import 'package:provider/provider.dart';
 
 class MapView extends StatefulWidget {
-  final List<Exam> userCourses;
+  final List<Exam> exams;
 
-  const MapView({super.key, required this.userCourses});
+  const MapView({super.key, required this.exams});
 
   @override
   State<MapView> createState() => MapViewState();
@@ -13,9 +15,6 @@ class MapView extends StatefulWidget {
 
 class MapViewState extends State<MapView> {
   GoogleMapController? mapController;
-
-  final LatLng _initialPosition =
-      const LatLng(39.8283, -98.5795); // Center of the map (USA)
 
   @override
   void initState() {
@@ -44,19 +43,16 @@ class MapViewState extends State<MapView> {
     return markers;
   }
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
   @override
   Widget build(BuildContext context) {
+    LocationProvider locationProvider = Provider.of<LocationProvider>(context);
     return GoogleMap(
-      onMapCreated: _onMapCreated,
+      onMapCreated: locationProvider.onMapCreated,
       initialCameraPosition: CameraPosition(
-        target: _initialPosition,
-        zoom: 3.0,
+        target: locationProvider.currentLocation.coordinates,
+        zoom: 15.0,
       ),
-      markers: convertToMarkers(widget.userCourses),
+      markers: convertToMarkers(widget.exams),
     );
   }
 }

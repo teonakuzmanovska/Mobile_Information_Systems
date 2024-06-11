@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lab3/models/Exam.dart';
 
 class CalendarView extends StatefulWidget {
-  final List<Exam> userCourses;
+  final List<Exam> exams;
 
-  const CalendarView({super.key, required this.userCourses});
+  const CalendarView({super.key, required this.exams});
 
   @override
   State<CalendarView> createState() => _CalendarViewState();
@@ -15,7 +15,7 @@ class _CalendarViewState extends State<CalendarView> {
   @override
   Widget build(BuildContext context) {
     // Create a list of CalendarEventData from userCourses
-    List<CalendarEventData> events = widget.userCourses.map((exam) {
+    List<CalendarEventData> events = widget.exams.map((exam) {
       return CalendarEventData(date: exam.date, title: exam.title);
     }).toList();
 
