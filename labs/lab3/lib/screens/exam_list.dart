@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lab3/models/Exam.dart';
 import 'package:intl/intl.dart';
+import 'package:lab3/models/Exam.dart';
 
 class ExamList extends StatelessWidget {
   final List<Exam> exams;
@@ -14,7 +14,7 @@ class ExamList extends StatelessWidget {
         return Container(
           width: double.infinity,
           margin: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-          height: 100,
+          height: 120,
           child: Card(
             elevation: 5,
             child: Column(children: [
@@ -30,6 +30,10 @@ class ExamList extends StatelessWidget {
               ),
               Text(
                 DateFormat().format(course.date),
+                style: const TextStyle(color: Colors.black45),
+              ),
+              Text(
+                course.location.address.toString(),
                 style: const TextStyle(color: Colors.black45),
               )
             ]),

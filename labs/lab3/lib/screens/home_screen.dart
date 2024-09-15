@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lab3/models/Exam.dart';
+import 'package:lab3/models/Location.dart' as location_model;
 import 'package:lab3/screens/calendar_view.dart';
 import 'package:lab3/screens/exam_list.dart';
+import 'package:lab3/screens/map_view.dart';
 import 'package:lab3/widgets/new_exam.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -15,13 +17,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final titleController = TextEditingController();
 
-  final List<Exam> _userCourses = [];
+  final List<Exam> _exams = [];
 
-  void _addNewCourse(String title, DateTime date) {
-    final newCourse = Exam(title: title, date: date);
+  void _addNewCourse(
+      String title, DateTime date, location_model.Location location) {
+    final newCourse = Exam(title: title, date: date, location: location);
 
     setState(() {
-      _userCourses.add(newCourse);
+      _exams.add(newCourse);
     });
   }
 
@@ -43,9 +46,16 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        CalendarView(userCourses: _userCourses))),
+                    builder: (context) => CalendarView(exams: _exams))),
             icon: const Icon(Icons.calendar_month),
+            color: Colors.black,
+          ),
+          IconButton(
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MapView(exams: _exams))),
+            icon: const Icon(Icons.map),
             color: Colors.black,
           ),
           IconButton(
@@ -55,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: ListView(children: [ExamList(_userCourses)]),
+      body: ListView(children: [ExamList(_exams)]),
     );
   }
 }
