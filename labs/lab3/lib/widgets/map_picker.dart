@@ -24,7 +24,8 @@ class _MapPickerContent extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () {
-              locationProvider.selectLocationAndPop(context);
+              var location = locationProvider.selectLocation(context);
+              Navigator.of(context).pop(location);
             },
           ),
         ],

@@ -6,6 +6,7 @@ import 'package:lab3/services/location_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  //await dotenv.load(); // Load environment variables
   runApp(const MyApp());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
